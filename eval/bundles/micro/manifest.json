@@ -1,0 +1,71 @@
+{
+  "$schema": "../../schema/manifest.v1.schema.json",
+  "version": "1",
+  "name": "micro",
+  "description": "Template bundle: replace dataset_<FIXTURE_TABLE> in gold_sql after upload; verify scalars against your seeded data.",
+  "cases": [
+    {
+      "id": "conv_smalltalk",
+      "question": "What is machine learning?",
+      "expect": {
+        "intent": "conversational",
+        "result": {
+          "type": "conversational"
+        }
+      }
+    },
+    {
+      "id": "count_rows",
+      "question": "How many students are in this dataset?",
+      "data": {
+        "csv_path": "sample.csv",
+        "table_placeholder": "dataset_<FIXTURE_TABLE>"
+      },
+      "expect": {
+        "intent": "simple_query",
+        "relevant_columns": ["Student"],
+        "gold_sql": "SELECT COUNT(*)::float AS c FROM \"dataset_<FIXTURE_TABLE>\"",
+        "result": {
+          "type": "scalar",
+          "value": 4
+        }
+      }
+    },
+    {
+      "id": "avg_math",
+      "question": "What is the average Math score?",
+      "data": {
+        "csv_path": "sample.csv",
+        "table_placeholder": "dataset_<FIXTURE_TABLE>"
+      },
+      "expect": {
+        "intent": "simple_query",
+        "relevant_columns": ["Math score"],
+        "gold_sql": "SELECT AVG(\"Math score\")::float AS avg_math FROM \"dataset_<FIXTURE_TABLE>\"",
+        "result": {
+          "type": "scalar",
+          "value": 80,
+          "abs_tol": 0.51
+        }
+      }
+    },
+    {
+      "id": "top_english",
+      "question": "Who has the highest English score?",
+      "data": {
+        "csv_path": "sample.csv",
+        "table_placeholder": "dataset_<FIXTURE_TABLE>"
+      },
+      "expect": {
+        "intent": "complex_query",
+        "relevant_columns": ["Student", "English score"],
+        "gold_sql": "SELECT \"Student\" FROM \"dataset_<FIXTURE_TABLE>\" ORDER BY \"English score\" DESC NULLS LAST LIMIT 1",
+        "result": {
+          "type": "table",
+          "path": "expected/top_english.json",
+          "row_order_matters": false
+        }
+      }
+    }
+  ]
+}

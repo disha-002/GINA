@@ -1,0 +1,51 @@
+# semantic_yaml/sunita_sme_expenses.yaml
+# Pre-authored semantic state for the Sunita SME expenses demo dataset.
+# Used by seeds/seed.ts to populate semantic_states and schema_embeddings.
+
+datasetId: demo_sunita
+tableName: dataset_demo_sunita
+understandingCard: "Looks like an SME energy expense tracker with 80 records across Q1 2024. We read amount as your net spend in GBP, category as expense type, and sustainability_flag as your green spend indicator."
+columns:
+  - columnName: date
+    businessLabel: Transaction Date
+    semanticType: date
+    currency: null
+    description: The date the expense was recorded
+    postgresType: DATE
+    sampleValues: ["2024-01-05", "2024-02-12", "2024-03-20"]
+    nullPct: 0
+    uniqueCount: 80
+    valueRange: { min: "2024-01-02", max: "2024-03-31" }
+
+  - columnName: amount
+    businessLabel: Net Spend (GBP)
+    semanticType: amount
+    currency: GBP
+    description: Net expense amount in GBP
+    postgresType: NUMERIC
+    sampleValues: ["1200.00", "340.50", "875.00"]
+    nullPct: 0
+    uniqueCount: 73
+    valueRange: { min: "260.00", max: "8400.00" }
+
+  - columnName: category
+    businessLabel: Expense Category
+    semanticType: category
+    currency: null
+    description: Type of business expense (energy, travel, equipment, etc.)
+    postgresType: TEXT
+    sampleValues: ["Solar & Renewables", "LED Lighting", "EV Charging", "Gas Heating", "Fleet Diesel"]
+    nullPct: 0
+    uniqueCount: 7
+    valueRange: null
+
+  - columnName: sustainability_flag
+    businessLabel: Green Spend Indicator
+    semanticType: flag
+    currency: null
+    description: Indicates whether the expense is classified as sustainable (Y) or non-sustainable (N)
+    postgresType: TEXT
+    sampleValues: ["Y", "N"]
+    nullPct: 0
+    uniqueCount: 2
+    valueRange: null

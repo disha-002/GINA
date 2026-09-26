@@ -1,0 +1,5 @@
+[
+    {"plan": "Enterprise", "avg_users": 276.76},
+    {"plan": "Free", "avg_users": 70.88},
+    {"plan": "Pro", "avg_users": 104.12}
+  ]

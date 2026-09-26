@@ -1,0 +1,5 @@
+[
+    {"date": "2024-06-03", "country": "US", "plan": "Enterprise", "users": 420, "revenue": 9900.00, "churned": false},
+    {"date": "2024-03-02", "country": "US", "plan": "Enterprise", "users": 400, "revenue": 9800.00, "churned": true},
+    {"date": "2024-07-20", "country": "US", "plan": "Enterprise", "users": 380, "revenue": 9700.00, "churned": false}
+  ]

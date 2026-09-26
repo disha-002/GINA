@@ -1,0 +1,7 @@
+[
+    {"product_category": "Electronics", "avg_revenue": 1199.31},
+    {"product_category": "Home", "avg_revenue": 423.14},
+    {"product_category": "Sports", "avg_revenue": 301.83},
+    {"product_category": "Clothing", "avg_revenue": 244.23},
+    {"product_category": "Beauty", "avg_revenue": 172.75}
+  ]

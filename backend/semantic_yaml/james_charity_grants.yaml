@@ -1,0 +1,84 @@
+# semantic_yaml/james_charity_grants.yaml
+# Pre-authored semantic state for the James charity grants demo dataset.
+# Used by seeds/seed.ts to populate semantic_states and schema_embeddings.
+
+datasetId: demo_james
+tableName: dataset_demo_james
+understandingCard: "Tracks UK charity grant allocations across 2023-2024, with awarded_amount showing committed funding and spent_amount reflecting actual disbursements across focus areas and regions."
+columns:
+  - columnName: grant_date
+    businessLabel: Grant Date
+    semanticType: date
+    currency: null
+    description: The date the grant was awarded
+    postgresType: DATE
+    sampleValues: ["2023-04-03", "2023-07-11", "2024-01-22"]
+    nullPct: 0
+    uniqueCount: 60
+    valueRange: { min: "2023-04-03", max: "2024-03-31" }
+
+  - columnName: charity_name
+    businessLabel: Charity Name
+    semanticType: category
+    currency: null
+    description: The name of the charity receiving the grant
+    postgresType: TEXT
+    sampleValues: ["Mind & Matter Trust", "Green Futures CIC", "Literacy First", "Wellbeing Alliance", "YouthPath UK"]
+    nullPct: 0
+    uniqueCount: 15
+    valueRange: null
+
+  - columnName: project
+    businessLabel: Project Name
+    semanticType: text
+    currency: null
+    description: The specific project or programme funded by the grant
+    postgresType: TEXT
+    sampleValues: ["Mental Health Outreach", "Community Allotments", "After-School Reading", "Solar Panel Installation", "Crisis Support Line"]
+    nullPct: 0
+    uniqueCount: 60
+    valueRange: null
+
+  - columnName: awarded_amount
+    businessLabel: Awarded Amount (GBP)
+    semanticType: amount
+    currency: GBP
+    description: Total amount of funding committed for the project in GBP
+    postgresType: NUMERIC
+    sampleValues: ["15000.00", "8500.00", "22000.00", "45000.00", "6000.00"]
+    nullPct: 0
+    uniqueCount: 32
+    valueRange: { min: "3500.00", max: "50000.00" }
+
+  - columnName: spent_amount
+    businessLabel: Amount Spent (GBP)
+    semanticType: amount
+    currency: GBP
+    description: Actual amount disbursed to date for the project in GBP. Some grants show 0.00 where spending has not yet begun.
+    postgresType: NUMERIC
+    sampleValues: ["12400.00", "8500.00", "18700.00", "38000.00", "5900.00"]
+    nullPct: 0
+    uniqueCount: 48
+    valueRange: { min: "0.00", max: "38000.00" }
+
+  - columnName: region
+    businessLabel: UK Region
+    semanticType: category
+    currency: null
+    description: UK geographic region where the charity primarily operates
+    postgresType: TEXT
+    sampleValues: ["London", "North West", "Yorkshire", "South East", "Midlands"]
+    nullPct: 0
+    uniqueCount: 7
+    valueRange: null
+
+  - columnName: focus_area
+    businessLabel: Focus Area
+    semanticType: category
+    currency: null
+    description: Primary area of charitable activity or social impact
+    postgresType: TEXT
+    sampleValues: ["Health", "Environment", "Education", "Community Development"]
+    nullPct: 0
+    uniqueCount: 4
+    valueRange: null

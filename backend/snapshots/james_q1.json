@@ -1,0 +1,81 @@
+{
+  "matchQuestion": "What are my largest expense categories?",
+  "datasetSlug": "james",
+  "outputPayload": {
+    "narrative": "Your largest expense categories are Travel (£18,400), Software (£12,950), and Team Meals (£8,100). Travel is clearly the biggest cost driver and is about 42% higher than Software.",
+    "chartType": "bar",
+    "chartData": {
+      "labels": ["Travel", "Software", "Team Meals"],
+      "datasets": [{ "label": "amount", "data": [18400, 12950, 8100] }]
+    },
+    "keyFigure": "£39,450",
+    "citationChips": ["category", "amount"],
+    "sql": "SELECT category, SUM(amount) AS amount FROM dataset_demo_james GROUP BY category ORDER BY amount DESC LIMIT 3",
+    "secondarySql": null,
+    "rowCount": 3,
+    "confidenceScore": 93,
+    "followUpSuggestions": [
+      "How has Travel changed month over month?",
+      "Which vendors contribute most to Software spend?",
+      "Compare this quarter vs last quarter by category"
+    ],
+    "autoInsights": ["Travel alone represents 47% of the top-3 category spend."],
+    "cacheHit": false,
+    "snapshotUsed": true
+  },
+  "simulatedSteps": [
+    {
+      "step": "planner",
+      "status": "running",
+      "detail": "Understanding your question..."
+    },
+    {
+      "step": "planner",
+      "status": "complete",
+      "detail": "Identified intent and relevant columns",
+      "intent": "simple_query",
+      "relevantColumns": ["category", "amount"]
+    },
+    {
+      "step": "sql_generation",
+      "status": "running",
+      "detail": "Generating SQL query",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "sql_fallback",
+      "status": "warning",
+      "detail": "Using backup query method",
+      "originalPath": "groq_maverick",
+      "fallbackPath": "template"
+    },
+    {
+      "step": "sql_generation",
+      "status": "complete",
+      "detail": "SQL ready",
+      "sqlPath": "template"
+    },
+    {
+      "step": "db_execution",
+      "status": "running",
+      "detail": "Executing against your data"
+    },
+    {
+      "step": "db_execution",
+      "status": "complete",
+      "detail": "Query finished",
+      "rowsReturned": 3,
+      "truncated": false
+    },
+    {
+      "step": "narration",
+      "status": "running",
+      "detail": "Writing your answer"
+    },
+    {
+      "step": "narration",
+      "status": "complete",
+      "detail": "Done"
+    }
+  ]
+}

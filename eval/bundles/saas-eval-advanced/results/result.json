@@ -1,0 +1,618 @@
+{
+  "bundle": "ecommerce-eval-final",
+  "manifestPath": "file:///C:/Users/aahil/OneDrive/Documents/vs/code-for-purpose/gina/eval/bundles/saas-eval-advanced/manifest.json",
+  "baseUrl": "http://127.0.0.1:3001",
+  "datasetId": "f605983c-a5ee-49fc-8bfc-0e949d53e80e",
+  "tableName": "dataset_f605983ca5ee49fc8bfc0e949d53e80e",
+  "conversationId": "c4950367-044d-492a-8ebc-1298802a2cf3",
+  "evalConfig": {
+    "checkIntentForSql": false,
+    "checkRelevantColumns": false,
+    "debugSql": true,
+    "caseDelayMs": 10000
+  },
+  "passed": true,
+  "summary": {
+    "total": 24,
+    "failed": 0
+  },
+  "cases": [
+    {
+      "id": "q01",
+      "ok": true,
+      "question": "How many orders are in the dataset?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["order_id"],
+          "actual": ["order_id"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 100,
+          "expected": 100
+        }
+      },
+      "narrativePreview": "There are 100 orders included in this dataset."
+    },
+    {
+      "id": "q02",
+      "ok": true,
+      "question": "What is the total revenue across all orders?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["revenue"],
+          "actual": ["revenue"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 47915.54,
+          "expected": 47915.54
+        }
+      },
+      "narrativePreview": "The total revenue across all orders is 47,915.54."
+    },
+    {
+      "id": "q03",
+      "ok": true,
+      "question": "What is the average revenue per order?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["revenue"],
+          "actual": ["revenue", "order_id"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 479.1554,
+          "expected": 479.16
+        }
+      },
+      "narrativePreview": "The average revenue per order is $479.16. This figure represents the typical revenue generated from each customer order."
+    },
+    {
+      "id": "q04",
+      "ok": true,
+      "question": "What is the minimum price across all orders?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["price"],
+          "actual": ["price"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 28,
+          "expected": 28
+        }
+      },
+      "narrativePreview": "The minimum price found across all orders is 28."
+    },
+    {
+      "id": "q05",
+      "ok": true,
+      "question": "What is the maximum discount percent applied to any order?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["discount_percent"],
+          "actual": ["discount_percent"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 40,
+          "expected": 40
+        }
+      },
+      "narrativePreview": "The maximum discount applied to any order was 40 percent."
+    },
+    {
+      "id": "q06",
+      "ok": true,
+      "question": "How many orders were placed by customers in the UK?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["country"],
+          "actual": ["order_id", "country"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 20,
+          "expected": 20
+        }
+      },
+      "narrativePreview": "There were 20 orders placed by customers in the UK."
+    },
+    {
+      "id": "q07",
+      "ok": true,
+      "question": "How many orders were placed in February 2024?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["order_date"],
+          "actual": ["order_id", "order_date"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 30,
+          "expected": 30
+        }
+      },
+      "narrativePreview": "There were 30 orders placed in February 2024."
+    },
+    {
+      "id": "q08",
+      "ok": true,
+      "question": "How many orders had a discount greater than 20 percent?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["discount_percent"],
+          "actual": ["order_id", "discount_percent"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 7,
+          "expected": 7
+        }
+      },
+      "narrativePreview": "There were 7 orders that had a discount greater than 20 percent."
+    },
+    {
+      "id": "q09",
+      "ok": true,
+      "question": "How many orders were not returned?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["is_returned"],
+          "actual": ["order_id", "is_returned"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 88,
+          "expected": 88
+        }
+      },
+      "narrativePreview": "There were 88 orders that were not returned."
+    },
+    {
+      "id": "q10",
+      "ok": true,
+      "question": "How many orders were returned?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "simple_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["is_returned"],
+          "actual": ["order_id", "is_returned"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 12,
+          "expected": 12
+        }
+      },
+      "narrativePreview": "There were 12 orders returned."
+    },
+    {
+      "id": "q11",
+      "ok": true,
+      "question": "What is the total revenue broken down by country?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["country", "revenue"],
+          "actual": ["country", "revenue"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 5,
+          "actualRowCount": 5,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "The total revenue across all listed countries is 47915.54. The United States generated the highest revenue at 13034.99, representing 27.20% of the total. India contributed the next largest portion wit"
+    },
+    {
+      "id": "q12",
+      "ok": true,
+      "question": "What is the total revenue for each product category?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["product_category", "revenue"],
+          "actual": ["product_category", "revenue"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 5,
+          "actualRowCount": 5,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "Electronics generated the highest revenue at 25185.49, representing 53% of the total. Home followed with 8886, Sports with 5433, Clothing with 5128.85, and Beauty had 3282.2 in revenue."
+    },
+    {
+      "id": "q13",
+      "ok": true,
+      "question": "What is the average order revenue for each product category?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["product_category", "revenue"],
+          "actual": ["product_category", "revenue"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 5,
+          "actualRowCount": 5,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "Electronics has the highest average order revenue at $1199.31, significantly more than Home ($423.14) and Sports ($301.83). Clothing averages $244.23 and Beauty averages $172.75. Electronics is the ma"
+    },
+    {
+      "id": "q14",
+      "ok": true,
+      "question": "What is the total quantity sold for each product category?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["product_category", "quantity"],
+          "actual": ["product_category", "quantity"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 5,
+          "actualRowCount": 5,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "Across all product categories, Clothing sold the most quantity with 90 units, followed by Beauty with 77 units and Sports with 61 units. Home products sold 51 units, and Electronics sold 24 units."
+    },
+    {
+      "id": "q15",
+      "ok": true,
+      "question": "Which 5 orders had the highest revenue? Return order_id, country, product_category, and revenue.",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["order_id", "country", "product_category", "revenue"],
+          "actual": ["order_id", "country", "product_category", "revenue"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 5,
+          "actualRowCount": 5,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "The top 5 orders by revenue range from 2250 to 1350. Order ORD011 from the US generated the highest revenue at 2250, with all top orders being in the Electronics category. AutoInsights detected a decr"
+    },
+    {
+      "id": "q16",
+      "ok": true,
+      "question": "Which are the top 3 countries by total revenue?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["country", "revenue"],
+          "actual": ["country", "revenue"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 3,
+          "actualRowCount": 3,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "The top country by total revenue is the US with $13,034.99. India is second with $10,532.45, followed by Germany at $9,437.40."
+    },
+    {
+      "id": "q17",
+      "ok": true,
+      "question": "Which 5 product categories sold the most units by total quantity?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["product_category", "quantity"],
+          "actual": ["product_category", "quantity"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 5,
+          "actualRowCount": 5,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "The five product categories that sold the most units were Clothing with 90 units, followed by Beauty with 77 units, Sports with 61 units, Home with 51 units, and Electronics with 24 units. This shows "
+    },
+    {
+      "id": "q18",
+      "ok": true,
+      "question": "What is the total revenue from Electronics orders in the US?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["country", "product_category", "revenue"],
+          "actual": ["revenue", "product_category", "country"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 8859.99,
+          "expected": 8859.99
+        }
+      },
+      "narrativePreview": "The total revenue from Electronics orders in the US is $8,859.99."
+    },
+    {
+      "id": "q19",
+      "ok": true,
+      "question": "What is the average discount percent for returned orders?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["is_returned", "discount_percent"],
+          "actual": ["discount_percent", "is_returned"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 24.583333333333332,
+          "expected": 24.58
+        }
+      },
+      "narrativePreview": "The average discount for returned orders is 24.58%."
+    },
+    {
+      "id": "q20",
+      "ok": true,
+      "question": "How many orders had a quantity greater than 3 and a discount greater than 10 percent?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["quantity", "discount_percent"],
+          "actual": ["order_id", "quantity", "discount_percent"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 5,
+          "expected": 5
+        }
+      },
+      "narrativePreview": "There were 5 orders with a quantity greater than 3 and a discount greater than 10 percent."
+    },
+    {
+      "id": "q21",
+      "ok": true,
+      "question": "What is the average revenue per unit sold across all orders?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["revenue", "quantity"],
+          "actual": ["revenue", "quantity"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 158.13709570957096,
+          "expected": 158.14
+        }
+      },
+      "narrativePreview": "Across all orders, the average revenue per unit sold is 158.14."
+    },
+    {
+      "id": "q22",
+      "ok": true,
+      "question": "What percentage of orders were returned?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["is_returned"],
+          "actual": ["is_returned", "order_id"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "scalar": {
+          "pass": true,
+          "actual": 0.12,
+          "expected": 12
+        }
+      },
+      "narrativePreview": "12% of orders were returned."
+    },
+    {
+      "id": "q23",
+      "ok": true,
+      "question": "What is the average discount percent for each product category?",
+      "checks": {
+        "intent": {
+          "skipped": true,
+          "expected": "complex_query",
+          "actual": "simple_query",
+          "note": "set EVAL_CHECK_INTENT=1 to fail on intent mismatch for SQL cases"
+        },
+        "relevant_columns": {
+          "skipped": true,
+          "expected": ["product_category", "discount_percent"],
+          "actual": ["product_category", "discount_percent"],
+          "note": "set EVAL_CHECK_RELEVANT_COLUMNS=1 to enforce (subset match)"
+        },
+        "table": {
+          "pass": true,
+          "expectedRowCount": 5,
+          "actualRowCount": 5,
+          "table_abs_tol": 0.02
+        }
+      },
+      "narrativePreview": "The Electronics category has the highest average discount at 16.67%. Clothing has an average discount of 6.90%, while Sports and Home categories have similar average discounts around 4.17% and 4.05% r"
+    },
+    {
+      "id": "q24",
+      "ok": true,
+      "question": "What are some general best practices for reducing cart abandonment in e-commerce?",
+      "checks": {
+        "intent": {
+          "pass": true,
+          "expected": "conversational",
+          "actual": "conversational"
+        }
+      },
+      "narrativePreview": "To reduce cart abandonment in e-commerce, consider implementing best practices like streamlining the checkout process, offering guest checkout options, providing clear shipping information, and sendin"
+    }
+  ],
+  "ranAt": "2026-04-19T11:04:44.551Z"
+}

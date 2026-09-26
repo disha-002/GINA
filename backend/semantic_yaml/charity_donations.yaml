@@ -1,0 +1,62 @@
+# semantic_yaml/charity_donations.yaml
+# Pre-authored semantic state for the charity donations demo dataset.
+# Used by seeds/seed.ts to populate semantic_states and schema_embeddings.
+
+datasetId: demo_donations
+tableName: dataset_demo_donations
+understandingCard: "Records 100 individual donations across five fundraising campaigns in 2023-2024, tracking amounts, payment methods, and anonymous donor references for charity income planning."
+columns:
+  - columnName: donation_date
+    businessLabel: Donation Date
+    semanticType: date
+    currency: null
+    description: The date the donation was received
+    postgresType: DATE
+    sampleValues: ["2023-01-05", "2023-06-09", "2024-01-14"]
+    nullPct: 0
+    uniqueCount: 98
+    valueRange: { min: "2023-01-05", max: "2024-03-31" }
+
+  - columnName: donor_ref
+    businessLabel: Donor Reference
+    semanticType: identifier
+    currency: null
+    description: Anonymous donor reference code. Donors may give multiple times across different campaigns.
+    postgresType: TEXT
+    sampleValues: ["D001", "D012", "D023", "D045", "D007"]
+    nullPct: 0
+    uniqueCount: 50
+    valueRange: null
+
+  - columnName: amount
+    businessLabel: Donation Amount (GBP)
+    semanticType: amount
+    currency: GBP
+    description: Value of the donation in GBP
+    postgresType: NUMERIC
+    sampleValues: ["150.00", "500.00", "5000.00", "75.00", "1000.00"]
+    nullPct: 0
+    uniqueCount: 60
+    valueRange: { min: "25.00", max: "5000.00" }
+
+  - columnName: campaign
+    businessLabel: Fundraising Campaign
+    semanticType: category
+    currency: null
+    description: The named fundraising campaign the donation was attributed to
+    postgresType: TEXT
+    sampleValues: ["Warmth for Winter", "Plant a Tree", "Meals on Wheels", "Digital Divide", "Youth Futures"]
+    nullPct: 0
+    uniqueCount: 5
+    valueRange: null
+
+  - columnName: payment_method
+    businessLabel: Payment Method
+    semanticType: category
+    currency: null
+    description: How the donation was made
+    postgresType: TEXT
+    sampleValues: ["Card", "Bank Transfer", "Direct Debit", "Cheque"]
+    nullPct: 0
+    uniqueCount: 4
+    valueRange: null

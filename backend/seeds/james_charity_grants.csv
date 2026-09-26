@@ -1,0 +1,61 @@
+grant_date,charity_name,project,awarded_amount,spent_amount,region,focus_area
+2023-04-03,Mind & Matter Trust,Mental Health Outreach,15000.00,12400.00,London,Health
+2023-04-12,Green Futures CIC,Community Allotments,8500.00,8500.00,Yorkshire,Environment
+2023-04-18,Literacy First,After-School Reading,12000.00,9800.00,North West,Education
+2023-04-25,Wellbeing Alliance,Elderly Care Programme,22000.00,18700.00,South East,Health
+2023-04-28,Harvest Heritage,Food Bank Network,6000.00,5900.00,Midlands,Community Development
+2023-05-07,YouthPath UK,Skills & Employment,18500.00,14200.00,Scotland,Education
+2023-05-14,Urban Roots,Green Spaces Initiative,9000.00,7600.00,London,Environment
+2023-05-20,Digital Bridges,Digital Inclusion Hub,11000.00,11000.00,Wales,Education
+2023-05-27,Coastal Care,Marine Conservation,7500.00,5300.00,South East,Environment
+2023-05-31,Age Together,Isolation Befriending,14000.00,12900.00,North West,Community Development
+2023-06-05,Connect Communities,Neighbourhood Events,5000.00,4200.00,Yorkshire,Community Development
+2023-06-12,First Steps Education,Early Years Support,16500.00,15800.00,Midlands,Education
+2023-06-19,Enviro Action,Plastic Free Coastlines,8000.00,6400.00,South East,Environment
+2023-06-26,Health Forward,GP Surgery Wellbeing,25000.00,21000.00,London,Health
+2023-06-30,Future Makers,Innovation Lab,13000.00,9500.00,Scotland,Education
+2023-07-04,Mind & Matter Trust,Crisis Support Line,20000.00,17200.00,London,Health
+2023-07-11,Green Futures CIC,Solar Panel Installation,45000.00,38000.00,Yorkshire,Environment
+2023-07-17,Literacy First,Mobile Library,9500.00,9500.00,North West,Education
+2023-07-24,Wellbeing Alliance,Carer Support,18000.00,14600.00,South East,Health
+2023-07-31,Harvest Heritage,Community Kitchen,7000.00,6800.00,Midlands,Community Development
+2023-08-07,YouthPath UK,Apprenticeship Scheme,22000.00,19400.00,Scotland,Education
+2023-08-14,Urban Roots,Rewilding Project,11500.00,8200.00,London,Environment
+2023-08-21,Digital Bridges,Tech for Elderly,8000.00,7100.00,Wales,Community Development
+2023-08-28,Coastal Care,Beach Clean Programme,4500.00,4500.00,South East,Environment
+2023-09-04,Age Together,Dementia Cafe,16000.00,13800.00,North West,Health
+2023-09-11,Connect Communities,Youth Sports Hub,9000.00,7400.00,Yorkshire,Community Development
+2023-09-18,First Steps Education,Breakfast Club,12000.00,12000.00,Midlands,Education
+2023-09-25,Enviro Action,Tree Planting Drive,6500.00,5200.00,South East,Environment
+2023-10-02,Health Forward,Mental Health First Aid,19000.00,16300.00,London,Health
+2023-10-09,Future Makers,Youth Coding Camp,10500.00,9800.00,Scotland,Education
+2023-10-16,Mind & Matter Trust,Peer Support Groups,17000.00,15100.00,North West,Health
+2023-10-23,Green Futures CIC,Wind Energy Study,35000.00,28600.00,Yorkshire,Environment
+2023-10-30,Literacy First,Library Outreach,11000.00,10400.00,Midlands,Education
+2023-11-06,Wellbeing Alliance,Nutrition Programme,14500.00,11200.00,South East,Health
+2023-11-13,Harvest Heritage,Winter Warmth Packs,8000.00,8000.00,Midlands,Community Development
+2023-11-20,YouthPath UK,Leadership Programme,16000.00,14000.00,Scotland,Education
+2023-11-27,Urban Roots,Vertical Garden Project,7500.00,5900.00,London,Environment
+2023-12-04,Digital Bridges,Coding Bootcamp,13000.00,12700.00,Wales,Education
+2023-12-11,Coastal Care,Habitat Restoration,9000.00,7800.00,South East,Environment
+2023-12-18,Age Together,Christmas Connect,6000.00,6000.00,North West,Community Development
+2023-12-22,Connect Communities,Winter Community Lunch,3500.00,3100.00,Yorkshire,Community Development
+2024-01-08,Health Forward,Smoking Cessation,21000.00,17400.00,London,Health
+2024-01-15,Future Makers,Female Founders Grant,15000.00,12100.00,Scotland,Education
+2024-01-22,Mind & Matter Trust,Anxiety Management,18000.00,0.00,London,Health
+2024-01-29,Green Futures CIC,Energy Audit Programme,12000.00,4200.00,Yorkshire,Environment
+2024-02-05,Literacy First,Reading Champions,14000.00,11600.00,North West,Education
+2024-02-12,Wellbeing Alliance,Yoga & Mindfulness,9500.00,8300.00,South East,Health
+2024-02-19,Harvest Heritage,Urban Farm,18000.00,14000.00,Midlands,Community Development
+2024-02-26,YouthPath UK,Mentorship Scheme,20000.00,16800.00,Scotland,Education
+2024-03-04,Urban Roots,Composting Network,6000.00,3200.00,London,Environment
+2024-03-05,Digital Bridges,Smart Home Demos,11500.00,9400.00,Wales,Education
+2024-03-11,Coastal Care,Seagrass Planting,14000.00,10200.00,South East,Environment
+2024-03-12,Age Together,Social Prescribing,22000.00,18500.00,North West,Health
+2024-03-18,Connect Communities,Community Garden,8000.00,5600.00,Yorkshire,Community Development
+2024-03-19,First Steps Education,STEM Outreach,17000.00,14200.00,Midlands,Education
+2024-03-25,Enviro Action,Climate Action Plans,11000.00,8700.00,South East,Environment
+2024-03-26,Health Forward,Healthy Eating Initiative,16500.00,13900.00,London,Health
+2024-03-28,Future Makers,Social Enterprise Fund,28000.00,21000.00,Scotland,Education
+2024-03-29,Mind & Matter Trust,PTSD Support,15000.00,7500.00,North West,Health
+2024-03-31,Green Futures CIC,Net Zero Strategy,50000.00,0.00,Yorkshire,Environment

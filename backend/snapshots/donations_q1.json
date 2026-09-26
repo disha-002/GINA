@@ -1,0 +1,81 @@
+{
+  "matchQuestion": "Which causes received the most funding?",
+  "datasetSlug": "donations",
+  "outputPayload": {
+    "narrative": "The causes receiving the most funding are Education (£112,000), Health Access (£96,500), and Climate Action (£84,000). Education currently leads the portfolio and remains the strongest concentration of donated capital.",
+    "chartType": "bar",
+    "chartData": {
+      "labels": ["Education", "Health Access", "Climate Action"],
+      "datasets": [{ "label": "funding", "data": [112000, 96500, 84000] }]
+    },
+    "keyFigure": "£292,500",
+    "citationChips": ["cause", "amount", "campaign"],
+    "sql": "SELECT cause, SUM(amount) AS funding FROM dataset_demo_donations GROUP BY cause ORDER BY funding DESC LIMIT 3",
+    "secondarySql": null,
+    "rowCount": 3,
+    "confidenceScore": 94,
+    "followUpSuggestions": [
+      "Show these causes by month",
+      "Which campaigns drove Education funding?",
+      "Compare restricted vs unrestricted gifts"
+    ],
+    "autoInsights": ["Education is about 16% higher than Health Access among the top causes."],
+    "cacheHit": false,
+    "snapshotUsed": true
+  },
+  "simulatedSteps": [
+    {
+      "step": "planner",
+      "status": "running",
+      "detail": "Understanding your question..."
+    },
+    {
+      "step": "planner",
+      "status": "complete",
+      "detail": "Identified intent and relevant columns",
+      "intent": "simple_query",
+      "relevantColumns": ["cause", "amount"]
+    },
+    {
+      "step": "sql_generation",
+      "status": "running",
+      "detail": "Generating SQL query",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "sql_fallback",
+      "status": "warning",
+      "detail": "Using backup query method",
+      "originalPath": "groq_maverick",
+      "fallbackPath": "gemini"
+    },
+    {
+      "step": "sql_generation",
+      "status": "complete",
+      "detail": "SQL ready",
+      "sqlPath": "gemini"
+    },
+    {
+      "step": "db_execution",
+      "status": "running",
+      "detail": "Executing against your data"
+    },
+    {
+      "step": "db_execution",
+      "status": "complete",
+      "detail": "Query finished",
+      "rowsReturned": 3,
+      "truncated": false
+    },
+    {
+      "step": "narration",
+      "status": "running",
+      "detail": "Writing your answer"
+    },
+    {
+      "step": "narration",
+      "status": "complete",
+      "detail": "Done"
+    }
+  ]
+}

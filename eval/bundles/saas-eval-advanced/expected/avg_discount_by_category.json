@@ -1,0 +1,7 @@
+[
+    {"product_category": "Electronics", "avg_discount": 16.67},
+    {"product_category": "Clothing", "avg_discount": 6.90},
+    {"product_category": "Sports", "avg_discount": 4.17},
+    {"product_category": "Home", "avg_discount": 4.05},
+    {"product_category": "Beauty", "avg_discount": 2.37}
+  ]

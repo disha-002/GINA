@@ -1,0 +1,7 @@
+[
+    {"product_category": "Clothing", "total_quantity": 90},
+    {"product_category": "Beauty", "total_quantity": 77},
+    {"product_category": "Sports", "total_quantity": 61},
+    {"product_category": "Home", "total_quantity": 51},
+    {"product_category": "Electronics", "total_quantity": 24}
+  ]

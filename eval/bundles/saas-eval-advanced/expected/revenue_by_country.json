@@ -1,0 +1,7 @@
+[
+    {"country": "US", "sum_revenue": 13034.99},
+    {"country": "India", "sum_revenue": 10532.45},
+    {"country": "Germany", "sum_revenue": 9437.40},
+    {"country": "Canada", "sum_revenue": 7687.00},
+    {"country": "UK", "sum_revenue": 7223.70}
+  ]

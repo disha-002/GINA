@@ -1,0 +1,7 @@
+[
+    {"order_id": "ORD011", "country": "US", "product_category": "Electronics", "revenue": 2250.00},
+    {"order_id": "ORD062", "country": "India", "product_category": "Electronics", "revenue": 1870.00},
+    {"order_id": "ORD099", "country": "Germany", "product_category": "Electronics", "revenue": 1550.00},
+    {"order_id": "ORD032", "country": "India", "product_category": "Electronics", "revenue": 1520.00},
+    {"order_id": "ORD092", "country": "India", "product_category": "Electronics", "revenue": 1350.00}
+  ]

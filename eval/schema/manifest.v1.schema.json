@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gina.local/eval/manifest.v1.schema.json",
+  "title": "GINA eval bundle manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "name", "cases"],
+  "properties": {
+    "version": {
+      "const": "1",
+      "description": "Manifest format version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Bundle identifier (folder name or slug)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable summary of coverage"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/case" }
+    }
+  },
+  "$defs": {
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "question", "expect"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$",
+          "description": "Stable case id for reports"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Fixture location; omit if using a pre-seeded dataset only",
+          "properties": {
+            "csv_path": {
+              "type": "string",
+              "description": "Path relative to this manifest.json"
+            },
+            "table_placeholder": {
+              "type": "string",
+              "description": "Substring in gold_sql to replace with real dataset_* table name after upload",
+              "default": "dataset_<FIXTURE_TABLE>"
+            }
+          }
+        },
+        "expect": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["intent", "result"],
+          "properties": {
+            "intent": {
+              "type": "string",
+              "enum": [
+                "conversational",
+                "simple_query",
+                "complex_query",
+                "follow_up_cache"
+              ]
+            },
+            "relevant_columns": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "gold_sql": {
+              "type": ["string", "null"],
+              "description": "Single SELECT against the fixture table; null if conversational-only"
+            },
+            "result": { "$ref": "#/$defs/expectResult" }
+          }
+        }
+      }
+    },
+    "expectResult": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "value"],
+          "properties": {
+            "type": { "const": "scalar" },
+            "value": {
+              "description": "Expected single cell; use table for multi-column or multi-row",
+              "oneOf": [
+                { "type": "number" },
+                { "type": "string" },
+                { "type": "boolean" }
+              ]
+            },
+            "abs_tol": { "type": "number", "minimum": 0 },
+            "rel_tol": { "type": "number", "minimum": 0 },
+            "compare_as": {
+              "type": "string",
+              "enum": ["fraction_as_percent"],
+              "description": "If set, treat model values in 0–1 as fractions when gold value is percent on 0–100 scale (e.g. 0.12 vs 12)"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "path"],
+          "properties": {
+            "type": { "const": "table" },
+            "path": {
+              "type": "string",
+              "description": "JSON or CSV path relative to manifest.json with expected rows"
+            },
+            "row_order_matters": {
+              "type": "boolean",
+              "default": false
+            },
+            "table_abs_tol": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Numeric cell tolerance for table comparison (overrides EVAL_DEFAULT_TABLE_ABS_TOL)"
+            },
+            "column_aliases": {
+              "type": "object",
+              "description": "Maps gold JSON column names to alternative keys in API resultTable (tried after built-in aggregate synonyms)",
+              "additionalProperties": {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": {
+            "type": { "const": "conversational" },
+            "narrative_contains": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "description": "Optional substrings expected in the assistant reply"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "matchQuestion": "How much did I spend last month?",
+  "datasetSlug": "james",
+  "outputPayload": {
+    "narrative": "You spent £9,780 last month. That is a moderate decrease versus the prior month, with most of the drop coming from lower travel and event-related costs.",
+    "chartType": "big_number",
+    "chartData": { "value": 9780, "label": "last_month_spend" },
+    "keyFigure": "£9,780",
+    "citationChips": ["amount", "transaction_date"],
+    "sql": "SELECT COALESCE(SUM(amount), 0) AS last_month_spend FROM dataset_demo_james WHERE transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') AND transaction_date < DATE_TRUNC('month', CURRENT_DATE)",
+    "secondarySql": null,
+    "rowCount": 1,
+    "confidenceScore": 91,
+    "followUpSuggestions": [
+      "Break last month down by category",
+      "Compare last month with the same month last year",
+      "Show weekly spending trend for last month"
+    ],
+    "autoInsights": ["Travel and events were the largest contributors to the month-over-month decline."],
+    "cacheHit": false,
+    "snapshotUsed": true
+  },
+  "simulatedSteps": [
+    {
+      "step": "planner",
+      "status": "running",
+      "detail": "Understanding your question..."
+    },
+    {
+      "step": "planner",
+      "status": "complete",
+      "detail": "Identified intent and relevant columns",
+      "intent": "simple_query",
+      "relevantColumns": ["amount", "transaction_date"]
+    },
+    {
+      "step": "sql_generation",
+      "status": "running",
+      "detail": "Generating SQL query",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "sql_generation",
+      "status": "complete",
+      "detail": "SQL ready",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "db_execution",
+      "status": "running",
+      "detail": "Executing against your data"
+    },
+    {
+      "step": "db_execution",
+      "status": "complete",
+      "detail": "Query finished",
+      "rowsReturned": 1,
+      "truncated": false
+    },
+    {
+      "step": "narration",
+      "status": "running",
+      "detail": "Writing your answer"
+    },
+    {
+      "step": "narration",
+      "status": "complete",
+      "detail": "Done"
+    }
+  ]
+}

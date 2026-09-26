@@ -1,0 +1,71 @@
+{
+  "matchQuestion": "What is the total donation amount?",
+  "datasetSlug": "donations",
+  "outputPayload": {
+    "narrative": "The total donation amount is £250,000. Contributions are broad-based, with consistent inflows across recurring donors and campaign-linked gifts.",
+    "chartType": "big_number",
+    "chartData": { "value": 250000, "label": "total" },
+    "keyFigure": "£250,000",
+    "citationChips": ["amount", "donation_date", "donor_segment"],
+    "sql": "SELECT SUM(amount) FROM dataset_demo_donations",
+    "secondarySql": null,
+    "rowCount": 1,
+    "confidenceScore": 93,
+    "followUpSuggestions": [
+      "Show total donations by month",
+      "Which donor segments contributed most?",
+      "Compare this total with last year"
+    ],
+    "autoInsights": ["A small set of major gifts contributes a significant share of the total."],
+    "cacheHit": false,
+    "snapshotUsed": true
+  },
+  "simulatedSteps": [
+    {
+      "step": "planner",
+      "status": "running",
+      "detail": "Understanding your question..."
+    },
+    {
+      "step": "planner",
+      "status": "complete",
+      "detail": "Identified intent and relevant columns",
+      "intent": "simple_query",
+      "relevantColumns": ["amount"]
+    },
+    {
+      "step": "sql_generation",
+      "status": "running",
+      "detail": "Generating SQL query",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "sql_generation",
+      "status": "complete",
+      "detail": "SQL ready",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "db_execution",
+      "status": "running",
+      "detail": "Executing against your data"
+    },
+    {
+      "step": "db_execution",
+      "status": "complete",
+      "detail": "Query finished",
+      "rowsReturned": 1,
+      "truncated": false
+    },
+    {
+      "step": "narration",
+      "status": "running",
+      "detail": "Writing your answer"
+    },
+    {
+      "step": "narration",
+      "status": "complete",
+      "detail": "Done"
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+    "version": "1",
+    "name": "ecommerce-eval-final",
+    "description": "Full SQL capability coverage for e-commerce order analytics dataset",
+    "cases": [
+      {
+        "id": "q01",
+        "question": "How many orders are in the dataset?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["order_id"],
+          "gold_sql": "SELECT COUNT(*) FROM dataset_<FIXTURE_TABLE>",
+          "result": {
+            "type": "scalar",
+            "value": 100
+          }
+        }
+      },
+      {
+        "id": "q02",
+        "question": "What is the total revenue across all orders?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["revenue"],
+          "gold_sql": "SELECT ROUND(SUM(revenue)::numeric, 2) FROM dataset_<FIXTURE_TABLE>",
+          "result": {
+            "type": "scalar",
+            "value": 47915.54
+          }
+        }
+      },
+      {
+        "id": "q03",
+        "question": "What is the average revenue per order?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["revenue"],
+          "gold_sql": "SELECT ROUND(AVG(revenue)::numeric, 2) FROM dataset_<FIXTURE_TABLE>",
+          "result": {
+            "type": "scalar",
+            "value": 479.16
+          }
+        }
+      },
+      {
+        "id": "q04",
+        "question": "What is the minimum price across all orders?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["price"],
+          "gold_sql": "SELECT MIN(price) FROM dataset_<FIXTURE_TABLE>",
+          "result": {
+            "type": "scalar",
+            "value": 28.00
+          }
+        }
+      },
+      {
+        "id": "q05",
+        "question": "What is the maximum discount percent applied to any order?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["discount_percent"],
+          "gold_sql": "SELECT MAX(discount_percent) FROM dataset_<FIXTURE_TABLE>",
+          "result": {
+            "type": "scalar",
+            "value": 40
+          }
+        }
+      },
+      {
+        "id": "q06",
+        "question": "How many orders were placed by customers in the UK?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["country"],
+          "gold_sql": "SELECT COUNT(*) FROM dataset_<FIXTURE_TABLE> WHERE country = 'UK'",
+          "result": {
+            "type": "scalar",
+            "value": 20
+          }
+        }
+      },
+      {
+        "id": "q07",
+        "question": "How many orders were placed in February 2024?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["order_date"],
+          "gold_sql": "SELECT COUNT(*) FROM dataset_<FIXTURE_TABLE> WHERE order_date BETWEEN '2024-02-01' AND '2024-02-29'",
+          "result": {
+            "type": "scalar",
+            "value": 30
+          }
+        }
+      },
+      {
+        "id": "q08",
+        "question": "How many orders had a discount greater than 20 percent?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["discount_percent"],
+          "gold_sql": "SELECT COUNT(*) FROM dataset_<FIXTURE_TABLE> WHERE discount_percent > 20",
+          "result": {
+            "type": "scalar",
+            "value": 7
+          }
+        }
+      },
+      {
+        "id": "q09",
+        "question": "How many orders were not returned?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["is_returned"],
+          "gold_sql": "SELECT COUNT(*) FROM dataset_<FIXTURE_TABLE> WHERE is_returned = false",
+          "result": {
+            "type": "scalar",
+            "value": 88
+          }
+        }
+      },
+      {
+        "id": "q10",
+        "question": "How many orders were returned?",
+        "expect": {
+          "intent": "simple_query",
+          "relevant_columns": ["is_returned"],
+          "gold_sql": "SELECT COUNT(*) FROM dataset_<FIXTURE_TABLE> WHERE is_returned = true",
+          "result": {
+            "type": "scalar",
+            "value": 12
+          }
+        }
+      },
+      {
+        "id": "q11",
+        "question": "What is the total revenue broken down by country?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["country", "revenue"],
+          "gold_sql": "SELECT country, ROUND(SUM(revenue)::numeric, 2) AS sum_revenue FROM dataset_<FIXTURE_TABLE> GROUP BY country ORDER BY sum_revenue DESC",
+          "result": {
+            "type": "table",
+            "path": "expected/revenue_by_country.json"
+          }
+        }
+      },
+      {
+        "id": "q12",
+        "question": "What is the total revenue for each product category?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["product_category", "revenue"],
+          "gold_sql": "SELECT product_category, ROUND(SUM(revenue)::numeric, 2) AS sum_revenue FROM dataset_<FIXTURE_TABLE> GROUP BY product_category ORDER BY sum_revenue DESC",
+          "result": {
+            "type": "table",
+            "path": "expected/revenue_by_category.json"
+          }
+        }
+      },
+      {
+        "id": "q13",
+        "question": "What is the average order revenue for each product category?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["product_category", "revenue"],
+          "gold_sql": "SELECT product_category, ROUND(AVG(revenue)::numeric, 2) AS avg_revenue FROM dataset_<FIXTURE_TABLE> GROUP BY product_category ORDER BY avg_revenue DESC",
+          "result": {
+            "type": "table",
+            "path": "expected/avg_revenue_by_category.json"
+          }
+        }
+      },
+      {
+        "id": "q14",
+        "question": "What is the total quantity sold for each product category?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["product_category", "quantity"],
+          "gold_sql": "SELECT product_category, SUM(quantity) AS total_quantity FROM dataset_<FIXTURE_TABLE> GROUP BY product_category ORDER BY total_quantity DESC",
+          "result": {
+            "type": "table",
+            "path": "expected/quantity_by_category.json"
+          }
+        }
+      },
+      {
+        "id": "q15",
+        "question": "Which 5 orders had the highest revenue? Return order_id, country, product_category, and revenue.",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["order_id", "country", "product_category", "revenue"],
+          "gold_sql": "SELECT order_id, country, product_category, revenue FROM dataset_<FIXTURE_TABLE> ORDER BY revenue DESC LIMIT 5",
+          "result": {
+            "type": "table",
+            "path": "expected/top5_revenue_orders.json"
+          }
+        }
+      },
+      {
+        "id": "q16",
+        "question": "Which are the top 3 countries by total revenue?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["country", "revenue"],
+          "gold_sql": "SELECT country, ROUND(SUM(revenue)::numeric, 2) AS sum_revenue FROM dataset_<FIXTURE_TABLE> GROUP BY country ORDER BY sum_revenue DESC LIMIT 3",
+          "result": {
+            "type": "table",
+            "path": "expected/top3_countries_revenue.json"
+          }
+        }
+      },
+      {
+        "id": "q17",
+        "question": "Which 5 product categories sold the most units by total quantity?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["product_category", "quantity"],
+          "gold_sql": "SELECT product_category, SUM(quantity) AS total_quantity FROM dataset_<FIXTURE_TABLE> GROUP BY product_category ORDER BY total_quantity DESC LIMIT 5",
+          "result": {
+            "type": "table",
+            "path": "expected/top5_categories_quantity.json"
+          }
+        }
+      },
+      {
+        "id": "q18",
+        "question": "What is the total revenue from Electronics orders in the US?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["country", "product_category", "revenue"],
+          "gold_sql": "SELECT ROUND(SUM(revenue)::numeric, 2) FROM dataset_<FIXTURE_TABLE> WHERE country = 'US' AND product_category = 'Electronics'",
+          "result": {
+            "type": "scalar",
+            "value": 8859.99
+          }
+        }
+      },
+      {
+        "id": "q19",
+        "question": "What is the average discount percent for returned orders?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["is_returned", "discount_percent"],
+          "gold_sql": "SELECT ROUND(AVG(discount_percent)::numeric, 2) FROM dataset_<FIXTURE_TABLE> WHERE is_returned = true",
+          "result": {
+            "type": "scalar",
+            "value": 24.58
+          }
+        }
+      },
+      {
+        "id": "q20",
+        "question": "How many orders had a quantity greater than 3 and a discount greater than 10 percent?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["quantity", "discount_percent"],
+          "gold_sql": "SELECT COUNT(*) FROM dataset_<FIXTURE_TABLE> WHERE quantity > 3 AND discount_percent > 10",
+          "result": {
+            "type": "scalar",
+            "value": 5
+          }
+        }
+      },
+      {
+        "id": "q21",
+        "question": "What is the average revenue per unit sold across all orders?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["revenue", "quantity"],
+          "gold_sql": "SELECT ROUND((SUM(revenue) / SUM(quantity))::numeric, 2) AS avg_revenue_per_unit FROM dataset_<FIXTURE_TABLE>",
+          "result": {
+            "type": "scalar",
+            "value": 158.14
+          }
+        }
+      },
+      {
+        "id": "q22",
+        "question": "What percentage of orders were returned?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["is_returned"],
+          "gold_sql": "SELECT ROUND((COUNT(*) FILTER (WHERE is_returned = true) * 100.0 / COUNT(*))::numeric, 2) AS return_rate FROM dataset_<FIXTURE_TABLE>",
+          "result": {
+            "type": "scalar",
+            "value": 12.00,
+            "compare_as": "fraction_as_percent"
+          }
+        }
+      },
+      {
+        "id": "q23",
+        "question": "What is the average discount percent for each product category?",
+        "expect": {
+          "intent": "complex_query",
+          "relevant_columns": ["product_category", "discount_percent"],
+          "gold_sql": "SELECT product_category, ROUND(AVG(discount_percent)::numeric, 2) AS avg_discount FROM dataset_<FIXTURE_TABLE> GROUP BY product_category ORDER BY avg_discount DESC",
+          "result": {
+            "type": "table",
+            "path": "expected/avg_discount_by_category.json"
+          }
+        }
+      },
+      {
+        "id": "q24",
+        "question": "What are some general best practices for reducing cart abandonment in e-commerce?",
+        "expect": {
+          "intent": "conversational",
+          "relevant_columns": [],
+          "gold_sql": null,
+          "result": {
+            "type": "conversational"
+          }
+        }
+      }
+    ]
+  }

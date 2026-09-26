@@ -1,0 +1,81 @@
+date,amount,category,sustainability_flag
+2024-01-02,1200.00,Solar & Renewables,Y
+2024-01-03,860.00,Standard Electricity,N
+2024-01-04,340.50,Gas Heating,N
+2024-01-05,875.00,LED Lighting,Y
+2024-01-06,1480.00,LED Lighting,Y
+2024-01-08,2400.00,Fleet Diesel,N
+2024-01-09,520.00,Office & Admin,N
+2024-01-10,450.00,Standard Electricity,N
+2024-01-11,1850.00,Solar & Renewables,Y
+2024-01-12,680.00,Gas Heating,N
+2024-01-13,3200.00,EV Charging,Y
+2024-01-14,2860.00,Standard Electricity,N
+2024-01-15,320.00,Office & Admin,N
+2024-01-16,740.00,Standard Electricity,N
+2024-01-17,780.00,Gas Heating,N
+2024-01-18,950.00,LED Lighting,Y
+2024-01-19,2100.00,Fleet Diesel,N
+2024-01-20,1980.00,Fleet Diesel,N
+2024-01-21,650.00,Office & Admin,N
+2024-01-22,430.00,Gas Heating,N
+2024-01-23,1650.00,Solar & Renewables,Y
+2024-01-24,760.00,Office & Admin,N
+2024-01-25,550.00,Standard Electricity,N
+2024-01-26,8400.00,Solar & Renewables,Y
+2024-01-28,1750.00,EV Charging,Y
+2024-01-29,390.00,Gas Heating,N
+2024-01-30,1100.00,LED Lighting,Y
+2024-01-31,640.00,Fleet Diesel,N
+2024-02-01,720.00,Standard Electricity,N
+2024-02-02,2800.00,EV Charging,Y
+2024-02-04,810.00,Standard Electricity,N
+2024-02-05,480.00,Office & Admin,N
+2024-02-06,1380.00,Solar & Renewables,Y
+2024-02-07,590.00,Gas Heating,N
+2024-02-08,870.00,Standard Electricity,N
+2024-02-09,7200.00,Solar & Renewables,Y
+2024-02-10,450.00,Standard Electricity,N
+2024-02-11,3750.00,Fleet Diesel,N
+2024-02-12,340.00,Office & Admin,N
+2024-02-13,1920.00,Fleet Diesel,N
+2024-02-14,1250.00,EV Charging,Y
+2024-02-15,560.00,Gas Heating,N
+2024-02-16,430.00,Standard Electricity,N
+2024-02-18,890.00,LED Lighting,Y
+2024-02-19,3400.00,LED Lighting,Y
+2024-02-20,750.00,Office & Admin,N
+2024-02-21,980.00,Fleet Diesel,N
+2024-02-22,830.00,Gas Heating,N
+2024-02-23,1560.00,Solar & Renewables,Y
+2024-02-25,1140.00,Solar & Renewables,Y
+2024-02-26,490.00,Standard Electricity,N
+2024-02-27,2200.00,Solar & Renewables,Y
+2024-02-28,670.00,Office & Admin,N
+2024-02-29,1420.00,Fleet Diesel,N
+2024-03-01,790.00,Standard Electricity,N
+2024-03-03,2200.00,Solar & Renewables,Y
+2024-03-04,1680.00,EV Charging,Y
+2024-03-05,380.00,Gas Heating,N
+2024-03-06,5100.00,Solar & Renewables,Y
+2024-03-07,620.00,Office & Admin,N
+2024-03-08,440.00,Standard Electricity,N
+2024-03-10,740.00,Gas Heating,N
+2024-03-11,2750.00,Fleet Diesel,N
+2024-03-12,1180.00,LED Lighting,Y
+2024-03-13,690.00,Gas Heating,N
+2024-03-14,830.00,Office & Admin,N
+2024-03-15,4200.00,Solar & Renewables,Y
+2024-03-17,1650.00,Fleet Diesel,N
+2024-03-18,510.00,Standard Electricity,N
+2024-03-19,1750.00,LED Lighting,Y
+2024-03-20,940.00,Fleet Diesel,N
+2024-03-21,660.00,Gas Heating,N
+2024-03-22,2080.00,EV Charging,Y
+2024-03-24,260.00,Office & Admin,N
+2024-03-25,370.00,Office & Admin,N
+2024-03-26,1290.00,Solar & Renewables,Y
+2024-03-27,580.00,Standard Electricity,N
+2024-03-28,3600.00,Solar & Renewables,Y
+2024-03-29,920.00,Fleet Diesel,N
+2024-03-31,6800.00,Solar & Renewables,Y

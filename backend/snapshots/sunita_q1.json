@@ -1,0 +1,81 @@
+{
+  "matchQuestion": "What were my top 3 green energy spending categories this quarter?",
+  "datasetSlug": "sunita",
+  "outputPayload": {
+    "narrative": "Your top 3 green energy spending categories this quarter were Solar Equipment (£14,200, 52% of green spend), Wind Power (£7,800, 29%), and Energy Audits (£5,200, 19%). Solar Equipment alone accounts for more than half of sustainability spend this quarter.",
+    "chartType": "bar",
+    "chartData": {
+      "labels": ["Solar Equipment", "Wind Power", "Energy Audits"],
+      "datasets": [{ "label": "total", "data": [14200, 7800, 5200] }]
+    },
+    "keyFigure": "£27,200",
+    "citationChips": ["amount", "category", "sustainability_flag"],
+    "sql": "SELECT category, SUM(amount) as total FROM dataset_demo_sunita WHERE sustainability_flag IN ('Y','yes','Yes') GROUP BY category ORDER BY total DESC LIMIT 3",
+    "secondarySql": null,
+    "rowCount": 3,
+    "confidenceScore": 95,
+    "followUpSuggestions": [
+      "How has my sustainability spending changed month over month?",
+      "What's the total green spend vs non-green spend?",
+      "Which vendor had the highest solar equipment cost?"
+    ],
+    "autoInsights": ["Solar Equipment = 52% of green spend"],
+    "cacheHit": false,
+    "snapshotUsed": true
+  },
+  "simulatedSteps": [
+    {
+      "step": "planner",
+      "status": "running",
+      "detail": "Understanding your question..."
+    },
+    {
+      "step": "planner",
+      "status": "complete",
+      "detail": "Identified intent and relevant columns",
+      "intent": "simple_query",
+      "relevantColumns": ["category", "amount", "sustainability_flag"]
+    },
+    {
+      "step": "sql_generation",
+      "status": "running",
+      "detail": "Generating SQL query",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "sql_fallback",
+      "status": "warning",
+      "detail": "Using backup query method",
+      "originalPath": "groq_maverick",
+      "fallbackPath": "groq_maverick"
+    },
+    {
+      "step": "sql_generation",
+      "status": "complete",
+      "detail": "SQL ready",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "db_execution",
+      "status": "running",
+      "detail": "Executing against your data"
+    },
+    {
+      "step": "db_execution",
+      "status": "complete",
+      "detail": "Query finished",
+      "rowsReturned": 3,
+      "truncated": false
+    },
+    {
+      "step": "narration",
+      "status": "running",
+      "detail": "Writing your answer"
+    },
+    {
+      "step": "narration",
+      "status": "complete",
+      "detail": "Done"
+    }
+  ]
+}

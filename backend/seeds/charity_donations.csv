@@ -1,0 +1,101 @@
+donation_date,donor_ref,amount,campaign,payment_method
+2023-01-05,D012,150.00,Warmth for Winter,Card
+2023-01-08,D023,500.00,Plant a Tree,Bank Transfer
+2023-01-11,D045,25.00,Meals on Wheels,Direct Debit
+2023-01-15,D007,1000.00,Digital Divide,Card
+2023-01-19,D031,75.00,Youth Futures,Direct Debit
+2023-01-23,D018,200.00,Warmth for Winter,Cheque
+2023-01-29,D041,350.00,Plant a Tree,Card
+2023-02-02,D003,5000.00,Digital Divide,Bank Transfer
+2023-02-06,D028,100.00,Warmth for Winter,Direct Debit
+2023-02-10,D014,750.00,Youth Futures,Card
+2023-02-14,D036,50.00,Meals on Wheels,Direct Debit
+2023-02-18,D022,250.00,Plant a Tree,Card
+2023-02-22,D047,1500.00,Digital Divide,Bank Transfer
+2023-02-27,D009,80.00,Warmth for Winter,Direct Debit
+2023-03-03,D035,400.00,Youth Futures,Card
+2023-03-07,D019,120.00,Plant a Tree,Card
+2023-03-11,D043,2000.00,Digital Divide,Bank Transfer
+2023-03-15,D026,200.00,Meals on Wheels,Cheque
+2023-03-19,D006,600.00,Warmth for Winter,Card
+2023-03-24,D038,45.00,Youth Futures,Direct Debit
+2023-03-28,D015,300.00,Plant a Tree,Card
+2023-04-03,D029,180.00,Meals on Wheels,Direct Debit
+2023-04-07,D042,800.00,Digital Divide,Card
+2023-04-12,D011,100.00,Warmth for Winter,Bank Transfer
+2023-04-17,D033,2500.00,Youth Futures,Bank Transfer
+2023-04-21,D004,60.00,Plant a Tree,Direct Debit
+2023-04-26,D048,3000.00,Digital Divide,Bank Transfer
+2023-04-30,D021,150.00,Meals on Wheels,Card
+2023-05-04,D016,400.00,Plant a Tree,Card
+2023-05-09,D039,80.00,Youth Futures,Direct Debit
+2023-05-13,D027,1200.00,Digital Divide,Card
+2023-05-18,D002,250.00,Warmth for Winter,Card
+2023-05-22,D044,500.00,Plant a Tree,Bank Transfer
+2023-05-27,D013,30.00,Meals on Wheels,Direct Debit
+2023-05-31,D008,750.00,Youth Futures,Card
+2023-06-04,D034,175.00,Digital Divide,Card
+2023-06-09,D020,1000.00,Plant a Tree,Bank Transfer
+2023-06-13,D046,100.00,Warmth for Winter,Cheque
+2023-06-17,D005,400.00,Youth Futures,Card
+2023-06-22,D030,50.00,Meals on Wheels,Direct Debit
+2023-06-27,D017,2000.00,Digital Divide,Bank Transfer
+2023-07-03,D010,300.00,Plant a Tree,Card
+2023-07-08,D040,150.00,Warmth for Winter,Direct Debit
+2023-07-12,D024,600.00,Youth Futures,Card
+2023-07-17,D001,5000.00,Digital Divide,Bank Transfer
+2023-07-22,D037,80.00,Meals on Wheels,Direct Debit
+2023-07-26,D049,1000.00,Plant a Tree,Bank Transfer
+2023-07-31,D025,200.00,Warmth for Winter,Card
+2023-08-05,D032,350.00,Youth Futures,Card
+2023-08-09,D050,4000.00,Digital Divide,Bank Transfer
+2023-08-14,D006,120.00,Plant a Tree,Card
+2023-08-18,D015,90.00,Meals on Wheels,Direct Debit
+2023-08-23,D043,275.00,Warmth for Winter,Card
+2023-08-28,D027,800.00,Youth Futures,Card
+2023-09-02,D018,1500.00,Digital Divide,Bank Transfer
+2023-09-07,D035,200.00,Plant a Tree,Card
+2023-09-12,D004,60.00,Meals on Wheels,Direct Debit
+2023-09-17,D048,2500.00,Youth Futures,Bank Transfer
+2023-09-22,D020,100.00,Plant a Tree,Card
+2023-09-27,D041,600.00,Digital Divide,Card
+2023-10-02,D011,250.00,Warmth for Winter,Card
+2023-10-07,D024,400.00,Plant a Tree,Card
+2023-10-12,D039,50.00,Meals on Wheels,Direct Debit
+2023-10-17,D002,3000.00,Digital Divide,Bank Transfer
+2023-10-22,D046,150.00,Youth Futures,Card
+2023-10-27,D028,700.00,Plant a Tree,Bank Transfer
+2023-10-31,D017,2000.00,Digital Divide,Bank Transfer
+2023-11-04,D033,500.00,Warmth for Winter,Card
+2023-11-09,D007,1000.00,Youth Futures,Card
+2023-11-14,D042,80.00,Meals on Wheels,Direct Debit
+2023-11-19,D014,450.00,Plant a Tree,Card
+2023-11-24,D030,1500.00,Digital Divide,Card
+2023-11-29,D019,100.00,Warmth for Winter,Cheque
+2023-12-03,D047,250.00,Plant a Tree,Card
+2023-12-08,D009,3500.00,Digital Divide,Bank Transfer
+2023-12-12,D023,600.00,Youth Futures,Card
+2023-12-17,D036,120.00,Meals on Wheels,Direct Debit
+2023-12-21,D044,1000.00,Warmth for Winter,Card
+2023-12-27,D003,2000.00,Plant a Tree,Bank Transfer
+2024-01-04,D025,800.00,Digital Divide,Card
+2024-01-09,D040,150.00,Youth Futures,Direct Debit
+2024-01-14,D016,350.00,Warmth for Winter,Card
+2024-01-19,D001,5000.00,Digital Divide,Bank Transfer
+2024-01-21,D044,2500.00,Digital Divide,Bank Transfer
+2024-01-24,D032,200.00,Plant a Tree,Card
+2024-01-29,D010,300.00,Youth Futures,Card
+2024-02-03,D049,1200.00,Digital Divide,Bank Transfer
+2024-02-08,D022,75.00,Meals on Wheels,Direct Debit
+2024-02-13,D037,400.00,Warmth for Winter,Card
+2024-02-18,D013,5000.00,Plant a Tree,Bank Transfer
+2024-02-23,D045,100.00,Youth Futures,Direct Debit
+2024-02-25,D012,800.00,Youth Futures,Card
+2024-02-28,D008,1800.00,Digital Divide,Card
+2024-03-04,D026,250.00,Warmth for Winter,Card
+2024-03-09,D038,600.00,Plant a Tree,Card
+2024-03-14,D034,120.00,Meals on Wheels,Direct Debit
+2024-03-19,D021,4500.00,Digital Divide,Bank Transfer
+2024-03-24,D005,300.00,Youth Futures,Card
+2024-03-29,D031,180.00,Warmth for Winter,Direct Debit
+2024-03-31,D043,300.00,Plant a Tree,Card

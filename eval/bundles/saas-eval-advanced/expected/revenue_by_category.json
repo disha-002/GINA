@@ -1,0 +1,7 @@
+[
+    {"product_category": "Electronics", "sum_revenue": 25185.49},
+    {"product_category": "Home", "sum_revenue": 8886.00},
+    {"product_category": "Sports", "sum_revenue": 5433.00},
+    {"product_category": "Clothing", "sum_revenue": 5128.85},
+    {"product_category": "Beauty", "sum_revenue": 3282.20}
+  ]

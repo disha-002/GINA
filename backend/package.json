@@ -1,0 +1,42 @@
+{
+  "name": "talk-to-data-backend",
+  "version": "0.1.0",
+  "description": "Talk to Data — Backend API (NatWest Code for Purpose 2026)",
+  "type": "module",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "migrate": "node scripts/migrate.mjs",
+    "test": "node --import dotenv/config --import tsx --test src/tests/corsOrigins.test.ts src/tests/dropRedactedColumns.test.ts src/tests/validateSql.security.test.ts src/tests/queue.serial.test.ts src/tests/sqlTemplates.fallback.test.ts src/tests/sqlGenerator.prompt.test.ts src/tests/followUpSuggestions.test.ts src/tests/followUpMerge.test.ts src/tests/starterQuestions.test.ts src/tests/uploadLimits.test.ts src/tests/responseCache.concurrent.test.ts src/tests/plannerGroundingGuard.test.ts src/tests/datasetOverviewPayload.test.ts src/tests/retrieverOrder.test.ts",
+    "test:phase7:e2e": "node scripts/phase7-e2e.mjs",
+    "test:e2e:upload": "node scripts/e2e-full-upload.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3",
+    "@fastify/cors": "^11",
+    "@fastify/multipart": "^10",
+    "@fastify/sse": "^0.4",
+    "@google/genai": "^1",
+    "@huggingface/inference": "^4.13.15",
+    "@supabase/supabase-js": "^2",
+    "dotenv": "^17.4.1",
+    "fastify": "^5",
+    "fastify-plugin": "^5.1.0",
+    "groq-sdk": "^1",
+    "node-sql-parser": "^5",
+    "papaparse": "^5",
+    "pg": "^8",
+    "pgvector": "^0.2",
+    "xlsx": "^0.18.5",
+    "zod": "^3"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/papaparse": "^5.5.2",
+    "@types/pg": "^8",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
+}

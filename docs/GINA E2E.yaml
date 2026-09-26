@@ -1,0 +1,1372 @@
+openapi: 3.0.0
+info:
+  title: Gina — E2E Tests
+  description: >-
+    Complete end-to-end test suite for the Gina backend API (12 endpoints).
+
+
+    ## Endpoint coverage
+
+    | # | Method | Path | Folder |
+
+    |---|--------|------|--------|
+
+    | 1 | GET | /health | 1 — Health |
+
+    | 2 | POST | /api/users/sync | 2 — Users |
+
+    | 3 | GET | /api/datasets | 3 — Datasets |
+
+    | 4 | POST | /api/datasets/upload | 3 — Datasets |
+
+    | 5 | GET | /api/datasets/:id/semantic | 3 — Datasets |
+
+    | 6 | PATCH | /api/datasets/:id/semantic | 3 — Datasets |
+
+    | 7 | GET | /api/datasets/:id/conversations | 4 — Conversations |
+
+    | 8 | POST | /api/datasets/:id/conversations | 4 — Conversations |
+
+    | 9 | GET | /api/conversations/:id/messages | 6 — Messages |
+
+    | 10 | POST | /api/query | 5 — Query Pipeline |
+
+    | 11 | POST | /api/snapshot/toggle | 7 — Snapshot Mode |
+
+    | 12 | (negative cases) | various | 8 — Error Cases |
+
+
+    ## Setup
+
+    1. Import `Gina_Environment.postman_environment.json`
+
+    2. Select **Gina — Local Environment**
+
+    3. Start the backend on port 3001
+
+    4. Run **0 — Bootstrap › Create Test User & Get JWT** first
+
+    5. Run the collection sequentially — IDs auto-chain via test scripts
+
+
+    ## Upload test
+
+    The upload request (3 — Datasets › Upload CSV) ships a small inline CSV in
+    the pre-request script so you don't need an external file.
+  version: 1.0.0
+servers:
+  - url: http://{{supabaseurl}}
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: 0 — Bootstrap
+  - name: 1 — Health
+  - name: 2 — Users
+  - name: 3 — Datasets
+  - name: 4 — Conversations
+  - name: 5 — Query Pipeline (SSE)
+    description: >-
+      POST /api/query returns Server-Sent Events. Postman captures the full SSE
+      body — tests parse data: lines for step and result events.
+  - name: 6 — Messages
+  - name: 7 — Snapshot Mode
+    description: >-
+      Toggle ON → fire all 6 scripted snapshot queries → verify non-matching
+      falls through → toggle OFF.
+  - name: 8 — Error Cases
+    description: >-
+      Negative tests — verify the API rejects bad input with correct status
+      codes.
+paths:
+  /auth/v1/token:
+    post:
+      tags:
+        - 0 — Bootstrap
+      summary: Create Test User & Get JWT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: '{{testEmail}}'
+                password: '{{testPassword}}'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: apikey
+          in: header
+          schema:
+            type: string
+          example: '{{supabaseServiceRoleKey}}'
+        - name: grant_type
+          in: query
+          schema:
+            type: string
+          example: password
+      responses:
+        '200':
+          description: OK
+          headers:
+            ':status':
+              schema:
+                type: integer
+                example: 200
+            date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:51:08 GMT
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            cf-ray:
+              schema:
+                type: string
+                example: 9eb20474eb08a740-DEL
+            cf-cache-status:
+              schema:
+                type: string
+                example: DYNAMIC
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            strict-transport-security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            vary:
+              schema:
+                type: string
+                example: Origin, Accept-Encoding
+            x-content-type-options:
+              schema:
+                type: string
+                example: nosniff
+            sb-auth-refresh-token-prefix:
+              schema:
+                type: string
+                example: xaf5c
+            sb-auth-session-id:
+              schema:
+                type: string
+                example: f11690b0-8faf-4916-9b80-bb9482037053
+            sb-auth-user-id:
+              schema:
+                type: string
+                example: 910f109c-ca50-4c97-acfb-87eb785a937e
+            sb-gateway-version:
+              schema:
+                type: integer
+                example: '1'
+            sb-project-ref:
+              schema:
+                type: string
+                example: svbbildvjjxfbwoosbgc
+            sb-request-id:
+              schema:
+                type: string
+                example: 019d8188-051f-7f68-9959-5f35b628c286
+            x-envoy-attempt-count:
+              schema:
+                type: integer
+                example: '1'
+            x-envoy-upstream-service-time:
+              schema:
+                type: integer
+                example: '107'
+            set-cookie:
+              schema:
+                type: number
+                example: >-
+                  __cf_bm=YuM_gsB4Y3HyWcK3wVkyEIbCNWKzm_av4GvbKTyIBEg-1775994668-1.0.1.1-P5CAHu_ojYGmEKj4ezMzJpQlykoMToPlCDG3Vh96NDqVQOqMALCvPD3GBZhkFzYMIkOvtSnjinrwwGXKfwztFG1oHX4ULUXXlqa.hEtUCIs;
+                  path=/; expires=Sun, 12-Apr-26 12:21:08 GMT;
+                  domain=.supabase.co; HttpOnly; Secure; SameSite=None
+            server:
+              schema:
+                type: string
+                example: cloudflare
+            alt-svc:
+              schema:
+                type: string
+                example: h3=":443"; ma=86400
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "access_token": "eyJhbGciOiJFUzI1NiIsImtpZCI6IjM0ZDFhZDhiLTQ0ZTQtNGIyOS04YTkyLWFlN2UwMTk3OTUwMSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3N2YmJpbGR2amp4ZmJ3b29zYmdjLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI5MTBmMTA5Yy1jYTUwLTRjOTctYWNmYi04N2ViNzg1YTkzN2UiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzc1OTk4MjY4LCJpYXQiOjE3NzU5OTQ2NjgsImVtYWlsIjoidmVyaWZ5X3BoYXNlMkB0YWxrdG9kYXRhLnRlc3QiLCJwaG9uZSI6IiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTc3NTk5NDY2OH1dLCJzZXNzaW9uX2lkIjoiZjExNjkwYjAtOGZhZi00OTE2LTliODAtYmI5NDgyMDM3MDUzIiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.rD9Hq5CVfINidbzVSA7TmIeJrzDIkCdIwTncvcDHb9Sl0lS7NxXhuk77Zx5CormCo75I-KiWOBEgSgCdx0olZg",
+                    "token_type": "bearer",
+                    "expires_in": 3600,
+                    "expires_at": 1775998268,
+                    "refresh_token": "xaf5cdpm24kh",
+                    "user": {
+                        "id": "910f109c-ca50-4c97-acfb-87eb785a937e",
+                        "aud": "authenticated",
+                        "role": "authenticated",
+                        "email": "verify_phase2@talktodata.test",
+                        "email_confirmed_at": "2026-04-11T22:46:50.214998Z",
+                        "phone": "",
+                        "confirmed_at": "2026-04-11T22:46:50.214998Z",
+                        "last_sign_in_at": "2026-04-12T11:51:08.469797734Z",
+                        "app_metadata": {
+                            "provider": "email",
+                            "providers": [
+                                "email"
+                            ]
+                        },
+                        "user_metadata": {
+                            "email_verified": true
+                        },
+                        "identities": [
+                            {
+                                "identity_id": "414851eb-da3c-4873-a3d3-cce8464a89cd",
+                                "id": "910f109c-ca50-4c97-acfb-87eb785a937e",
+                                "user_id": "910f109c-ca50-4c97-acfb-87eb785a937e",
+                                "identity_data": {
+                                    "email": "verify_phase2@talktodata.test",
+                                    "email_verified": false,
+                                    "phone_verified": false,
+                                    "sub": "910f109c-ca50-4c97-acfb-87eb785a937e"
+                                },
+                                "provider": "email",
+                                "last_sign_in_at": "2026-04-11T22:46:50.2105Z",
+                                "created_at": "2026-04-11T22:46:50.210552Z",
+                                "updated_at": "2026-04-11T22:46:50.210552Z",
+                                "email": "verify_phase2@talktodata.test"
+                            }
+                        ],
+                        "created_at": "2026-04-11T22:46:50.202277Z",
+                        "updated_at": "2026-04-12T11:51:08.480044Z",
+                        "is_anonymous": false
+                    },
+                    "weak_password": null
+                }
+  /health:
+    get:
+      tags:
+        - 1 — Health
+      summary: GET /health
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '15'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:52:53 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "status": "ok"
+                }
+  /api/users/sync:
+    post:
+      tags:
+        - 2 — Users
+      summary: POST /api/users/sync
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {}
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '104'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:53:06 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "ok": true,
+                    "user": {
+                        "id": "910f109c-ca50-4c97-acfb-87eb785a937e",
+                        "email": "verify_phase2@talktodata.test"
+                    }
+                }
+  /api/datasets:
+    get:
+      tags:
+        - 8 — Error Cases
+      summary: Invalid JWT → 401
+      security:
+        - bearerAuth: []
+      responses:
+        '401':
+          description: Unauthorized
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '25'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:59:14 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "error": "Invalid token"
+                }
+  /api/datasets/upload:
+    post:
+      tags:
+        - 3 — Datasets
+      summary: POST /api/datasets/upload (CSV)
+      description: >-
+        Upload a CSV file. Pick any .csv from your machine in the Body >
+        form-data > file field.
+
+
+        Alternatively, the seeds/ folder has sample CSVs:
+
+        - backend/seeds/sunita_sme_expenses.csv
+
+        - backend/seeds/james_charity_grants.csv
+
+        - backend/seeds/charity_donations.csv
+
+
+        Max 50 MB. Accepted MIME: text/csv, application/csv, text/plain,
+        application/octet-stream.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: >-
+                    Select any .csv file (max 50 MB). Or use the pre-request
+                    script approach below.
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '2975'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:53:34 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "dataset": {
+                        "id": "12224672-22a8-4870-8a24-cc5d2033817f",
+                        "name": "test_data_1000_rows.csv",
+                        "rowCount": 1000,
+                        "columnCount": 6,
+                        "isDemo": false,
+                        "createdAt": "2026-04-12T11:53:37.281Z"
+                    },
+                    "semanticState": {
+                        "id": "31b17807-ff9e-43bc-8a82-77504f6ad115",
+                        "datasetId": "12224672-22a8-4870-8a24-cc5d2033817f",
+                        "schemaJson": {
+                            "tableName": "dataset_1222467222a848708a24cc5d2033817f",
+                            "columns": [
+                                {
+                                    "columnName": "org_name",
+                                    "postgresType": "TEXT",
+                                    "businessLabel": "Organization Name",
+                                    "semanticType": "text",
+                                    "currency": null,
+                                    "description": "The name of the organization.",
+                                    "sampleValues": [
+                                        "Global Group",
+                                        "Nova Technologies",
+                                        "Bright Corp",
+                                        "Nova Systems",
+                                        "Global Ltd"
+                                    ],
+                                    "nullPct": 0,
+                                    "uniqueCount": 150,
+                                    "valueRange": null
+                                },
+                                {
+                                    "columnName": "amount",
+                                    "postgresType": "NUMERIC",
+                                    "businessLabel": "Amount",
+                                    "semanticType": "amount",
+                                    "currency": null,
+                                    "description": "The amount of a transaction or deal.",
+                                    "sampleValues": [
+                                        "110775",
+                                        "129306",
+                                        "32501",
+                                        "97528",
+                                        "145435"
+                                    ],
+                                    "nullPct": 0,
+                                    "uniqueCount": 997,
+                                    "valueRange": {
+                                        "min": "5052",
+                                        "max": "149858"
+                                    }
+                                },
+                                {
+                                    "columnName": "category",
+                                    "postgresType": "TEXT",
+                                    "businessLabel": "Category",
+                                    "semanticType": "category",
+                                    "currency": null,
+                                    "description": "The category or sector of the organization or transaction.",
+                                    "sampleValues": [
+                                        "Retail",
+                                        "Environment",
+                                        "Education",
+                                        "Technology",
+                                        "Finance"
+                                    ],
+                                    "nullPct": 0,
+                                    "uniqueCount": 6,
+                                    "valueRange": null
+                                },
+                                {
+                                    "columnName": "region",
+                                    "postgresType": "TEXT",
+                                    "businessLabel": "Region",
+                                    "semanticType": "category",
+                                    "currency": null,
+                                    "description": "The geographical region of the organization or transaction.",
+                                    "sampleValues": [
+                                        "East",
+                                        "South",
+                                        "South",
+                                        "North",
+                                        "East"
+                                    ],
+                                    "nullPct": 0,
+                                    "uniqueCount": 4,
+                                    "valueRange": null
+                                },
+                                {
+                                    "columnName": "channel",
+                                    "postgresType": "TEXT",
+                                    "businessLabel": "Channel",
+                                    "semanticType": "category",
+                                    "currency": null,
+                                    "description": "The sales or communication channel used.",
+                                    "sampleValues": [
+                                        "Online",
+                                        "Partner",
+                                        "Partner",
+                                        "Online",
+                                        "Online"
+                                    ],
+                                    "nullPct": 0,
+                                    "uniqueCount": 4,
+                                    "valueRange": null
+                                },
+                                {
+                                    "columnName": "approval_date",
+                                    "postgresType": "DATE",
+                                    "businessLabel": "Approval Date",
+                                    "semanticType": "date",
+                                    "currency": null,
+                                    "description": "The date when something was approved.",
+                                    "sampleValues": [
+                                        "2024-04-14",
+                                        "2024-01-09",
+                                        "2024-01-11",
+                                        "2024-02-13",
+                                        "2024-01-14"
+                                    ],
+                                    "nullPct": 0,
+                                    "uniqueCount": 121,
+                                    "valueRange": {
+                                        "min": "2024-01-01",
+                                        "max": "2024-04-30"
+                                    }
+                                }
+                            ],
+                            "understandingCard": "This spreadsheet is useful for analyzing transactions or deals by organization, with main measures including the amount of each transaction and dimensions such as category, region, and channel."
+                        },
+                        "understandingCard": "This spreadsheet is useful for analyzing transactions or deals by organization, with main measures including the amount of each transaction and dimensions such as category, region, and channel.",
+                        "isUserCorrected": false,
+                        "updatedAt": "2026-04-12T11:53:37.281Z"
+                    },
+                    "understandingCard": "This spreadsheet is useful for analyzing transactions or deals by organization, with main measures including the amount of each transaction and dimensions such as category, region, and channel.",
+                    "piiSummary": {
+                        "redactedColumns": [],
+                        "totalRedactions": 0
+                    }
+                }
+  /api/datasets/{datasetId}/semantic:
+    get:
+      tags:
+        - 3 — Datasets
+      summary: GET /api/datasets/:datasetId/semantic
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: datasetId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '1897'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:53:52 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "id": "303b79b4-1e71-49a9-9bfa-ac302e77ff45",
+                    "datasetId": "8fa755cc-04a3-4e0f-b50f-959ba169549d",
+                    "schemaJson": {
+                        "columns": [
+                            {
+                                "nullPct": 0,
+                                "currency": null,
+                                "columnName": "date",
+                                "valueRange": {
+                                    "max": "2024-03-31",
+                                    "min": "2024-01-02"
+                                },
+                                "description": "The date the expense was recorded",
+                                "uniqueCount": 80,
+                                "postgresType": "DATE",
+                                "sampleValues": [
+                                    "2024-01-05",
+                                    "2024-02-12",
+                                    "2024-03-20"
+                                ],
+                                "semanticType": "date",
+                                "businessLabel": "Transaction Date"
+                            },
+                            {
+                                "nullPct": 0,
+                                "currency": "GBP",
+                                "columnName": "amount",
+                                "valueRange": {
+                                    "max": "8400.00",
+                                    "min": "260.00"
+                                },
+                                "description": "Net expense amount in GBP",
+                                "uniqueCount": 73,
+                                "postgresType": "NUMERIC",
+                                "sampleValues": [
+                                    "1200.00",
+                                    "340.50",
+                                    "875.00"
+                                ],
+                                "semanticType": "amount",
+                                "businessLabel": "Net Spend (GBP)"
+                            },
+                            {
+                                "nullPct": 0,
+                                "currency": null,
+                                "columnName": "category",
+                                "valueRange": null,
+                                "description": "Type of business expense (energy, travel, equipment, etc.)",
+                                "uniqueCount": 7,
+                                "postgresType": "TEXT",
+                                "sampleValues": [
+                                    "Solar & Renewables",
+                                    "LED Lighting",
+                                    "EV Charging",
+                                    "Gas Heating",
+                                    "Fleet Diesel"
+                                ],
+                                "semanticType": "category",
+                                "businessLabel": "Expense Category"
+                            },
+                            {
+                                "nullPct": 0,
+                                "currency": null,
+                                "columnName": "sustainability_flag",
+                                "valueRange": null,
+                                "description": "Indicates whether the expense is classified as sustainable (Y) or non-sustainable (N)",
+                                "uniqueCount": 2,
+                                "postgresType": "TEXT",
+                                "sampleValues": [
+                                    "Y",
+                                    "N"
+                                ],
+                                "semanticType": "flag",
+                                "businessLabel": "Green Spend Indicator"
+                            }
+                        ],
+                        "tableName": "dataset_demo_sunita",
+                        "understandingCard": "Looks like an SME energy expense tracker with 80 records across Q1 2024. We read amount as your net spend in GBP, category as expense type, and sustainability_flag as your green spend indicator."
+                    },
+                    "understandingCard": "Looks like an SME energy expense tracker with 80 records across Q1 2024. We read amount as your net spend in GBP, category as expense type, and sustainability_flag as your green spend indicator.",
+                    "isUserCorrected": false,
+                    "updatedAt": "2026-04-11T22:43:22.524Z"
+                }
+    patch:
+      tags:
+        - 8 — Error Cases
+      summary: Empty corrections array → 400
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                corrections: []
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: datasetId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '400':
+          description: Bad Request
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '127'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:59:34 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "error": "Invalid body",
+                    "details": {
+                        "formErrors": [],
+                        "fieldErrors": {
+                            "corrections": [
+                                "Array must contain at least 1 element(s)"
+                            ]
+                        }
+                    }
+                }
+  /api/datasets/{datasetId}/conversations:
+    post:
+      tags:
+        - 4 — Conversations
+      summary: POST /api/datasets/:datasetId/conversations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {}
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: datasetId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '235'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:55:05 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "id": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                    "datasetId": "12224672-22a8-4870-8a24-cc5d2033817f",
+                    "userId": "910f109c-ca50-4c97-acfb-87eb785a937e",
+                    "title": null,
+                    "createdAt": "2026-04-12T11:55:09.502Z",
+                    "updatedAt": "2026-04-12T11:55:09.502Z"
+                }
+    get:
+      tags:
+        - 4 — Conversations
+      summary: GET /api/datasets/:datasetId/conversations
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: datasetId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '255'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:55:21 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "conversations": [
+                        {
+                            "id": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "datasetId": "12224672-22a8-4870-8a24-cc5d2033817f",
+                            "userId": "910f109c-ca50-4c97-acfb-87eb785a937e",
+                            "title": null,
+                            "createdAt": "2026-04-12T11:55:09.502Z",
+                            "updatedAt": "2026-04-12T11:55:09.502Z"
+                        }
+                    ]
+                }
+  /api/query:
+    post:
+      tags:
+        - 8 — Error Cases
+      summary: Query missing required fields → 400
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                question: missing IDs
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '400':
+          description: Bad Request
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '123'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:59:19 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "error": "Invalid body",
+                    "details": {
+                        "formErrors": [],
+                        "fieldErrors": {
+                            "conversationId": [
+                                "Required"
+                            ],
+                            "datasetId": [
+                                "Required"
+                            ]
+                        }
+                    }
+                }
+  /api/conversations/{conversationId}/messages:
+    get:
+      tags:
+        - 6 — Messages
+      summary: GET /api/conversations/:conversationId/messages
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversationId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '6620'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:56:42 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "messages": [
+                        {
+                            "id": "8b9b0065-891d-4f61-a5f4-b8167663a166",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "user",
+                            "content": "What are my largest expense categories?",
+                            "outputPayload": null,
+                            "createdAt": "2026-04-12T11:55:45.907Z"
+                        },
+                        {
+                            "id": "84836b0d-a581-42a9-8dc0-667a67c09e7e",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "assistant",
+                            "content": "Your largest expense categories are Technology, Healthcare, and Education, with total expenses of around 14.5 million, 14 million, and 12.4 million respectively. These categories account for the majority of your expenses, with Technology being the largest at 14.5 million. There is a decreasing trend in total expenses from 14.5 million to 11.1 million across these categories.",
+                            "outputPayload": {
+                                "sql": "SELECT category, SUM(amount) AS total_expense FROM dataset_1222467222a848708a24cc5d2033817f GROUP BY category ORDER BY total_expense DESC LIMIT 100",
+                                "cacheHit": false,
+                                "rowCount": 6,
+                                "chartData": {
+                                    "labels": [
+                                        "Technology",
+                                        "Healthcare",
+                                        "Education",
+                                        "Environment",
+                                        "Finance",
+                                        "Retail"
+                                    ],
+                                    "datasets": [
+                                        {
+                                            "data": [
+                                                14516394,
+                                                14006077,
+                                                12425733,
+                                                11978247,
+                                                11976702,
+                                                11094464
+                                            ],
+                                            "label": "total_expense"
+                                        }
+                                    ]
+                                },
+                                "chartType": "bar",
+                                "keyFigure": "£76.0M",
+                                "messageId": "84836b0d-a581-42a9-8dc0-667a67c09e7e",
+                                "narrative": "Your largest expense categories are Technology, Healthcare, and Education, with total expenses of around 14.5 million, 14 million, and 12.4 million respectively. These categories account for the majority of your expenses, with Technology being the largest at 14.5 million. There is a decreasing trend in total expenses from 14.5 million to 11.1 million across these categories.",
+                                "autoInsights": [
+                                    "Decreasing trend: 14.5M → 11.1M"
+                                ],
+                                "secondarySql": null,
+                                "snapshotUsed": false,
+                                "citationChips": [
+                                    "category",
+                                    "total_expense"
+                                ],
+                                "confidenceScore": 90,
+                                "followUpSuggestions": [
+                                    "How has Net Disbursement (GBP) changed month over month?",
+                                    "Which Category has the highest Net Disbursement (GBP)?",
+                                    "Compare Net Disbursement (GBP) across Category this year."
+                                ]
+                            },
+                            "createdAt": "2026-04-12T11:55:45.946Z"
+                        },
+                        {
+                            "id": "8b4d89fb-31e4-49d9-999c-8776bed9a0fb",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "user",
+                            "content": "Hello, what can you do?",
+                            "outputPayload": null,
+                            "createdAt": "2026-04-12T11:55:57.927Z"
+                        },
+                        {
+                            "id": "d68a59ea-ae12-4a2d-8bb2-76cee0e62964",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "assistant",
+                            "content": "I can help you analyze data from the given dataset, such as transactions or deals by organization. I can provide insights on amounts, categories, regions, and channels. What would you like to know?",
+                            "outputPayload": {
+                                "sql": "",
+                                "cacheHit": false,
+                                "rowCount": 0,
+                                "chartData": {
+                                    "labels": [],
+                                    "datasets": []
+                                },
+                                "chartType": "table",
+                                "keyFigure": "—",
+                                "messageId": "d68a59ea-ae12-4a2d-8bb2-76cee0e62964",
+                                "narrative": "I can help you analyze data from the given dataset, such as transactions or deals by organization. I can provide insights on amounts, categories, regions, and channels. What would you like to know?",
+                                "autoInsights": [],
+                                "secondarySql": null,
+                                "snapshotUsed": false,
+                                "citationChips": [],
+                                "confidenceScore": 100,
+                                "followUpSuggestions": [
+                                    "How has Net Disbursement (GBP) changed month over month?",
+                                    "Which Category has the highest Net Disbursement (GBP)?",
+                                    "Compare Net Disbursement (GBP) across Category this year."
+                                ]
+                            },
+                            "createdAt": "2026-04-12T11:55:57.963Z"
+                        },
+                        {
+                            "id": "640a7102-63b3-41e3-a780-bc4ca7df6477",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "user",
+                            "content": "What was my total spending?",
+                            "outputPayload": null,
+                            "createdAt": "2026-04-12T11:56:08.613Z"
+                        },
+                        {
+                            "id": "4866df01-d0ab-4f63-b8f2-df7c3475828a",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "assistant",
+                            "content": "Your total spending was 75,997,617. This is the overall amount spent, but the time period this covers is not specified in the result, so it's not clear if this is for a particular year or range of years. Without more information about the date coverage of the dataset, it's difficult to put this total into context.",
+                            "outputPayload": {
+                                "sql": "SELECT SUM(amount) AS total_spending FROM dataset_1222467222a848708a24cc5d2033817f LIMIT 100",
+                                "cacheHit": false,
+                                "rowCount": 1,
+                                "chartData": {
+                                    "label": "total_spending",
+                                    "value": 75997617
+                                },
+                                "chartType": "big_number",
+                                "keyFigure": "£76.0M",
+                                "messageId": "4866df01-d0ab-4f63-b8f2-df7c3475828a",
+                                "narrative": "Your total spending was 75,997,617. This is the overall amount spent, but the time period this covers is not specified in the result, so it's not clear if this is for a particular year or range of years. Without more information about the date coverage of the dataset, it's difficult to put this total into context.",
+                                "autoInsights": [],
+                                "secondarySql": null,
+                                "snapshotUsed": false,
+                                "citationChips": [
+                                    "total_spending"
+                                ],
+                                "confidenceScore": 80,
+                                "followUpSuggestions": [
+                                    "How has Net Disbursement (GBP) changed month over month?",
+                                    "Which Category has the highest Net Disbursement (GBP)?",
+                                    "Compare Net Disbursement (GBP) across Category this year."
+                                ]
+                            },
+                            "createdAt": "2026-04-12T11:56:08.651Z"
+                        },
+                        {
+                            "id": "85e5d327-87b5-46fe-8ecf-cb3b255bc951",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "user",
+                            "content": "What was my total spending?",
+                            "outputPayload": null,
+                            "createdAt": "2026-04-12T11:56:13.857Z"
+                        },
+                        {
+                            "id": "1a6d03a9-0548-4f94-b471-f4af1c6303a0",
+                            "conversationId": "5ffcd8ac-50a4-4f73-8971-7830703acf77",
+                            "role": "assistant",
+                            "content": "Your total spending was 75,997,617. This is the overall amount spent, but the time period this covers is not specified in the result, so it's not clear if this is for a particular year or range of years. Without more information about the date coverage of the dataset, it's difficult to put this total into context.",
+                            "outputPayload": {
+                                "sql": "SELECT SUM(amount) AS total_spending FROM dataset_1222467222a848708a24cc5d2033817f LIMIT 100",
+                                "cacheHit": true,
+                                "rowCount": 1,
+                                "chartData": {
+                                    "label": "total_spending",
+                                    "value": 75997617
+                                },
+                                "chartType": "big_number",
+                                "keyFigure": "£76.0M",
+                                "messageId": "1a6d03a9-0548-4f94-b471-f4af1c6303a0",
+                                "narrative": "Your total spending was 75,997,617. This is the overall amount spent, but the time period this covers is not specified in the result, so it's not clear if this is for a particular year or range of years. Without more information about the date coverage of the dataset, it's difficult to put this total into context.",
+                                "autoInsights": [],
+                                "secondarySql": null,
+                                "snapshotUsed": false,
+                                "citationChips": [
+                                    "total_spending"
+                                ],
+                                "confidenceScore": 80,
+                                "followUpSuggestions": [
+                                    "How has Net Disbursement (GBP) changed month over month?",
+                                    "Which Category has the highest Net Disbursement (GBP)?",
+                                    "Compare Net Disbursement (GBP) across Category this year."
+                                ]
+                            },
+                            "createdAt": "2026-04-12T11:56:13.897Z"
+                        }
+                    ]
+                }
+  /api/snapshot/toggle:
+    post:
+      tags:
+        - 7 — Snapshot Mode
+      summary: Toggle Snapshot OFF
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {}
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: OK
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '22'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:59:02 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "snapshotMode": false
+                }
+  /api/datasets/00000000-0000-0000-0000-000000000000/semantic:
+    get:
+      tags:
+        - 8 — Error Cases
+      summary: Non-existent dataset semantic → 404
+      security:
+        - bearerAuth: []
+      responses:
+        '404':
+          description: Not Found
+          headers:
+            vary:
+              schema:
+                type: string
+                example: Origin
+            access-control-allow-credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            content-type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            content-length:
+              schema:
+                type: integer
+                example: '29'
+            Date:
+              schema:
+                type: string
+                example: Sun, 12 Apr 2026 11:59:28 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=72
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "error": "Dataset not found"
+                }

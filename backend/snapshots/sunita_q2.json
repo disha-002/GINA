@@ -1,0 +1,73 @@
+{
+  "matchQuestion": "What was my total spending?",
+  "datasetSlug": "sunita",
+  "outputPayload": {
+    "narrative": "Your total spending was £120,795.50. Most of this came from recurring operating categories, with the highest concentration in core monthly outflows.",
+    "chartType": "big_number",
+    "chartData": { "value": 120795.5, "label": "total_spending" },
+    "keyFigure": "£120,796",
+    "citationChips": ["amount", "category", "transaction_date"],
+    "sql": "SELECT COALESCE(SUM(amount), 0) AS total_spending FROM dataset_demo_sunita",
+    "secondarySql": null,
+    "rowCount": 1,
+    "confidenceScore": 94,
+    "followUpSuggestions": [
+      "Break this down by category",
+      "Show spending month over month",
+      "Which category grew the fastest quarter over quarter?"
+    ],
+    "autoInsights": [
+      "The total is concentrated in a small number of recurring categories."
+    ],
+    "cacheHit": false,
+    "snapshotUsed": true
+  },
+  "simulatedSteps": [
+    {
+      "step": "planner",
+      "status": "running",
+      "detail": "Understanding your question..."
+    },
+    {
+      "step": "planner",
+      "status": "complete",
+      "detail": "Identified intent and relevant columns",
+      "intent": "simple_query",
+      "relevantColumns": ["amount"]
+    },
+    {
+      "step": "sql_generation",
+      "status": "running",
+      "detail": "Generating SQL query",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "sql_generation",
+      "status": "complete",
+      "detail": "SQL ready",
+      "sqlPath": "groq_maverick"
+    },
+    {
+      "step": "db_execution",
+      "status": "running",
+      "detail": "Executing against your data"
+    },
+    {
+      "step": "db_execution",
+      "status": "complete",
+      "detail": "Query finished",
+      "rowsReturned": 1,
+      "truncated": false
+    },
+    {
+      "step": "narration",
+      "status": "running",
+      "detail": "Writing your answer"
+    },
+    {
+      "step": "narration",
+      "status": "complete",
+      "detail": "Done"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# GINA backend — build and run the API container
+#
+# From this directory (backend/):
+#   cp .env.example .env   # then fill secrets
+#   docker compose up --build
+#
+# From repository root:
+#   docker compose -f backend/docker-compose.yml up --build
+#
+# Default host port is 10002 (machine port 3001 is reserved elsewhere). Container still listens
+# on 3001 internally. Override: HOST_PORT=9090 docker compose up
+#
+# Stop: docker compose down
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gina-backend:latest
+    container_name: gina-backend
+    ports:
+      - "${HOST_PORT:-10002}:3001"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      # Override .env PORT so in-container port stays 3001 (Dockerfile healthcheck + EXPOSE).
+      PORT: "3001"
+    restart: unless-stopped
